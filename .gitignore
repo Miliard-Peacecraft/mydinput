@@ -1,0 +1,11 @@
+*.sdf
+*.suo
+*.pch
+*.obj
+*.log
+*.res
+*.tlog
+*.pdb
+*.dll
+*.exp
+*.lib
