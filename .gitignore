@@ -9,3 +9,5 @@
 *.dll
 *.exp
 *.lib
+*.ilk
+*.idb
