@@ -69,9 +69,13 @@ HRESULT MyDirectInputDevice8::GetDeviceState(DWORD cbData, LPVOID lpvData)
 {
 	Sleep(SLEEP_DURATION);
 
-	if (FAILED(m_pDID->Poll()) || FAILED(m_pDID->Acquire()))
+	if (FAILED(m_pDID->Poll()))
 	{
+		// Reset data of device state
 		memset(lpvData, 0, cbData);
+
+		// Access to the input device has been lost. It must be reacquired.
+		while (m_pDID->Acquire() == DIERR_INPUTLOST);
 	}
 	else
 	{
