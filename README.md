@@ -9,7 +9,7 @@
 ##方法原理：
 原本RO主程式直接去呼叫dinput.dll中的函式，為了讓RO主程式在不間斷地呼叫dinput.dll中的某個函式前加入延遲函數sleep()來降低CPU使用率，於是我寫了一個自己的dinput.dll，讓RO主程式透過我的dinput.dll以間接的方式去使用那些函式。
 
-我設定延遲函數讓執行緒暫停33 ms，相當於每秒30次去讀取輸入的資料(原本是CPU有資源可以跑多少次就跑多少次)，手速超過每秒30次的大大不適用我的寫的dinput.dll。
+我設定延遲函數讓執行緒暫停7 ms，讓FPS保持大約30左右。
 
 ![image](http://truth.bahamut.com.tw/s01/201604/ba7bd23905e1303a9b4c09e2c6afd148.PNG)
 
@@ -55,4 +55,4 @@ https://www.microsoft.com/zh-tw/download/details.aspx?id=40770
 
 ###使用後
 
-![image](http://truth.bahamut.com.tw/s01/201604/26fb223569f0567032f4aa3ff901616d.PNG)
+![image](http://truth.bahamut.com.tw/s01/201604/e952f9c89cb6eaccb7968978e5489a9c.PNG)
