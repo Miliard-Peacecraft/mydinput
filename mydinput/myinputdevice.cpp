@@ -8,7 +8,7 @@
 #define new DEBUG_NEW
 #endif
 
-#define SLEEP_DURATION 33 // 33 ms
+#define SLEEP_DURATION 7 // 33 ms
 
 MyDirectInputDevice8::MyDirectInputDevice8(LPDIRECTINPUTDEVICE8 ppDID)
 	: m_pDID(ppDID)
