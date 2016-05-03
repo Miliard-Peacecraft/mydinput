@@ -76,8 +76,8 @@ HRESULT MyDirectInput8::ConfigureDevices(LPDICONFIGUREDEVICESCALLBACK lpdiCallba
 	return m_pDI->ConfigureDevices(lpdiCallback, lpdiCDParams, dwFlags, pvRefData);
 }
 
-/*** DirectInputCreateA ***/
-HRESULT WINAPI DirectInputCreateA(HINSTANCE hinst, DWORD dwVersion, LPDIRECTINPUTA *ppDI, LPUNKNOWN punkOuter)
+/*** MyDirectInputCreate ***/
+HRESULT WINAPI MyDirectInputCreate(HINSTANCE hinst, DWORD dwVersion, LPDIRECTINPUTA *ppDI, LPUNKNOWN punkOuter)
 {
 	LPDIRECTINPUT8 pDI = nullptr;
 	HRESULT hr = DirectInput8Create(hinst, DIRECTINPUT_VERSION, IID_IDirectInput8, reinterpret_cast<LPVOID*>(&pDI), punkOuter);

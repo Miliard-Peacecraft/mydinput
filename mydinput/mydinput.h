@@ -32,5 +32,5 @@ private:
 	LPDIRECTINPUT8 m_pDI;
 };
 
-/*** DirectInputCreateA ***/
-HRESULT WINAPI DirectInputCreateA(HINSTANCE hinst, DWORD dwVersion, LPDIRECTINPUTA *ppDI, LPUNKNOWN punkOuter);
+/*** MyDirectInputCreate ***/
+HRESULT WINAPI MyDirectInputCreate(HINSTANCE hinst, DWORD dwVersion, LPDIRECTINPUTA *ppDI, LPUNKNOWN punkOuter);

@@ -50,4 +50,6 @@ public:
 
 private:
 	LPDIRECTINPUTDEVICE8 m_pDID;
+	size_t iiii;
+	byte m_pDataCopy[16];
 };

@@ -3,5 +3,5 @@
 LIBRARY
 
 EXPORTS
-	DirectInputCreateA
+	DirectInputCreateA=MyDirectInputCreate
     ; 明確匯出可置於此

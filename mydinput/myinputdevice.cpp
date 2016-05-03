@@ -8,11 +8,12 @@
 #define new DEBUG_NEW
 #endif
 
-#define SLEEP_DURATION 7 // 33 ms
+#define SLEEP_DURATION 40 // ³æ¦ì ms
 
 MyDirectInputDevice8::MyDirectInputDevice8(LPDIRECTINPUTDEVICE8 ppDID)
-	: m_pDID(ppDID)
+	: m_pDID(ppDID), iiii(0)
 {
+	memset(m_pDataCopy, 0, 16);
 }
 MyDirectInputDevice8::~MyDirectInputDevice8()
 {
@@ -67,22 +68,37 @@ HRESULT MyDirectInputDevice8::Unacquire()
 }
 HRESULT MyDirectInputDevice8::GetDeviceState(DWORD cbData, LPVOID lpvData)
 {
-	Sleep(SLEEP_DURATION);
+	HRESULT hr = DI_OK;
 
 	if (FAILED(m_pDID->Poll()))
 	{
-		// Reset data of device state
-		memset(lpvData, 0, cbData);
-
 		// Access to the input device has been lost. It must be reacquired.
 		while (m_pDID->Acquire() == DIERR_INPUTLOST);
+
+		// Reset data of device state
+		m_pDataCopy[12] = 0;
+		m_pDataCopy[13] = 0;
+		m_pDataCopy[14] = 0;
+		memcpy(lpvData, m_pDataCopy, cbData);
+
+		Sleep(SLEEP_DURATION);
 	}
 	else
 	{
-		return m_pDID->GetDeviceState(cbData, lpvData);
+		if (iiii == 0)
+		{
+			hr = m_pDID->GetDeviceState(cbData, lpvData);
+			memcpy(m_pDataCopy, lpvData, cbData);
+			Sleep(SLEEP_DURATION);
+		}
+		else
+			memcpy(lpvData, m_pDataCopy, cbData);
 	}
 
-	return DI_OK;
+	if (++iiii == 2)
+		iiii = 0;
+
+	return hr;
 }
 HRESULT MyDirectInputDevice8::GetDeviceData(DWORD cbObjectData, LPDIDEVICEOBJECTDATA rgdod, LPDWORD pdwInOut, DWORD dwFlags)
 {
@@ -98,7 +114,7 @@ HRESULT MyDirectInputDevice8::SetEventNotification(HANDLE hEvent)
 }
 HRESULT MyDirectInputDevice8::SetCooperativeLevel(HWND hwnd, DWORD dwFlags)
 {
-	return m_pDID->SetCooperativeLevel(hwnd, dwFlags);
+	return m_pDID->SetCooperativeLevel(hwnd, DISCL_NONEXCLUSIVE | DISCL_FOREGROUND);
 }
 HRESULT MyDirectInputDevice8::GetObjectInfo(LPDIDEVICEOBJECTINSTANCE pdidoi, DWORD dwObj, DWORD dwHow)
 {
