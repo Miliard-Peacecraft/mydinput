@@ -89,10 +89,13 @@ HRESULT MyDirectInputDevice8::GetDeviceState(DWORD cbData, LPVOID lpvData)
 		{
 			hr = m_pDID->GetDeviceState(cbData, lpvData);
 			memcpy(m_pDataCopy, lpvData, cbData);
-			Sleep(SLEEP_DURATION);
 		}
 		else
+		{
 			memcpy(lpvData, m_pDataCopy, cbData);
+			Sleep(SLEEP_DURATION);
+		}
+			
 	}
 
 	if (++iiii == 2)
